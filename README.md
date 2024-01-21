@@ -1,2 +1,2 @@
 # GeoCoordAPI
-Python API to get geo coordinates
+Python API to get Geo Coordinates
