@@ -3,7 +3,7 @@ from geopy.geocoders import Nominatim
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['POST'])
 def get_coordinates():
     geolocator = Nominatim(user_agent='geoapi')
     
