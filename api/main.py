@@ -1,22 +1,23 @@
 from flask import Flask, request, jsonify
 from geopy.geocoders import Nominatim
 
+from addressStruct import addressStruct, coordStruct
+
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
-def get_coordinates():
+@app.route('/', methods=['POST'])
+def Coordinates():
     geolocator = Nominatim(user_agent='geoapi')
     
     data = request.get_json()
-    zip_code = data.get('zip_code')
+    fullAddress = addressStruct(data)
 
-    if zip_code:
-        location = geolocator.geocode(zip_code)
+    location = geolocator.geocode(fullAddress)
 
     try:
         coordinates = {
-            'latitude': location.latitude,
-            'longitude': location.longitude
+            'Latitude': location.latitude,
+            'Longitude': location.longitude
         }
 
         return jsonify(coordinates)
@@ -26,6 +27,30 @@ def get_coordinates():
 
     except Exception as e:
         return jsonify({'error': f'An unexpected error occurred: {e}'})
+    
+
+@app.route('/reverse', methods=['POST'])
+def ReverseCoordinates():
+    geolocator = Nominatim(user_agent='geoapi')
+    
+    data = request.get_json()
+    fullCoord = coordStruct(data)
+
+    location = geolocator.reverse(fullCoord)
+
+    try:
+        address = {
+            'Address': location.address
+        }
+
+        return jsonify(address)
+
+    except AttributeError as e:
+        return jsonify({'error': f'Error accessing address: {e}'})
+
+    except Exception as e:
+        return jsonify({'error': f'An unexpected error occurred: {e}'})
+
 
 if __name__ == '__main__':
     app.run(debug=True)
