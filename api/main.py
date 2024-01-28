@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from geopy.geocoders import Nominatim
 
-from addressStruct import addressStruct, coordStruct
+from utils.addressStruct import addressStruct, coordStruct
 
 app = Flask(__name__)
 
