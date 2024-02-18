@@ -1,14 +1,14 @@
 def addressStruct(dictAddress: dict) -> str:
     
     allowBody = [
-        'Number',
-        'Street',
-        'Neighborhood',
-        'District',
-        'PostalCode',
-        'City',
-        'State',
-        'Country'
+        'number',
+        'street',
+        'neighborhood',
+        'district',
+        'postalCode',
+        'city',
+        'state',
+        'country'
     ]
 
     listAddress = []
@@ -26,8 +26,8 @@ def addressStruct(dictAddress: dict) -> str:
 def coordStruct(dictCoord: dict) -> str:
 
     allowBody = [
-        'Latitude',
-        'Longitude'
+        'latitude',
+        'longitude'
     ]
 
     listCoord = []

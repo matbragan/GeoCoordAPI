@@ -1,13 +1,13 @@
 from flask import Flask, request, jsonify
 from geopy.geocoders import Nominatim
 
-from utils.addressStruct import addressStruct, coordStruct
+from utils.struct import addressStruct, coordStruct
 
 app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def Coordinates():
-    geolocator = Nominatim(user_agent='geoapi')
+    geolocator = Nominatim(user_agent='geocoord')
     
     data = request.get_json()
     fullAddress = addressStruct(data)
@@ -16,8 +16,8 @@ def Coordinates():
 
     try:
         coordinates = {
-            'Latitude': location.latitude,
-            'Longitude': location.longitude
+            'latitude': location.latitude,
+            'longitude': location.longitude
         }
 
         return jsonify(coordinates)
@@ -31,7 +31,7 @@ def Coordinates():
 
 @app.route('/reverse', methods=['POST'])
 def ReverseCoordinates():
-    geolocator = Nominatim(user_agent='geoapi')
+    geolocator = Nominatim(user_agent='geocoord')
     
     data = request.get_json()
     fullCoord = coordStruct(data)
@@ -40,7 +40,7 @@ def ReverseCoordinates():
 
     try:
         address = {
-            'Address': location.address
+            'address': location.address
         }
 
         return jsonify(address)
